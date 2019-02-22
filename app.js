@@ -1,16 +1,17 @@
+global.prefixPath = "/root/nodetracker"
 const fs = require('fs');
 const { LocalStorage } = require('node-localstorage');
 const jsonfile = require('jsonfile');
 const io = require('socket.io-client');
 const os = require('os');
-const SNode = require('./SNodeTracker').auto();
-const pkg = require('./package.json');
-const init = require('./init');
-const configuration = require('./config/config');
+const SNode = require(global.prefixPath+'/SNodeTracker').auto();
+const pkg = require(global.prefixPath+'/package.json');
+const init = require(global.prefixPath+'/init');
+const configuration = require(global.prefixPath+'/config/config');
 
-const file = './config/config.json';
+const file = global.prefixPath+'/config/config.json';
 
-const local = new LocalStorage('./config/local');
+const local = new LocalStorage(global.prefixPath+'/config/local');
 // check if setup was run
 if (!configuration) {
   console.log('Please run setup: node setup');
@@ -45,7 +46,7 @@ SNode.genCfg = genCfg;
 
 if (config.ipv === '6') {
   console.log('You setup ipv6 connectivity. We need to apply a workaround for dns resolution.');
-  require('./ipv6-dns-workaround');
+  require(global.prefixPath+'/ipv6-dns-workaround');
 }
 
 const logtime = () => `${(new Date()).toISOString().replace(/T/, ' ').replace(/\..+/, '')} UTC --`;
