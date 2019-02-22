@@ -1,14 +1,14 @@
-
+global.prefixPath = "/root/nodetracker"
 const { LocalStorage } = require('node-localstorage');
 const fs = require('fs');
 const StdRPC = require('stdrpc');
 const Backoff = require('backo2');
 
-const Zen = require('./zencfg');
+const Zen = require(global.prefixPath+'/zencfg');
 
 const zencfg = Zen.getZenConfig();
 
-const local = new LocalStorage('./config/local');
+const local = new LocalStorage(global.prefixPath+'/config/local');
 const cfg = {
   url: zencfg.url,
   ssl: {
